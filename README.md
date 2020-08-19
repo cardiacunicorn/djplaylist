@@ -1,6 +1,8 @@
-# Djplaylist
+# DJ Playlist
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.6.
+### Developed by Alex Mills as part of a cloud computing unit at RMIT, 2020
+
+A cloud-based web app that allows users to reorder and recreate Spotify playlists using the advanced metrics available through Spotify's API
 
 ## Development server
 
