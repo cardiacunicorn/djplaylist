@@ -1,1 +1,18 @@
-/* You can add global styles to this file, and also import other style files */
+$med-blue: #527ACC;
+$dark-blue: #3D6DCC;
+$pink: #CC6696;
+$gold: #CCA03D;
+$green: #47CC4A;
+
+img {
+  margin: 0 1vw;
+}
+
+a:hover {
+  opacity: 0.7;
+}
+
+nav img, footer img {
+  max-height: 3vh;
+  max-width: 5vw;
+}
