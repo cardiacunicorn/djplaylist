@@ -1,7 +1,7 @@
 /* Application-wide Styles */
 
-$med-blue: #527ACC;
-$dark-blue: #3D6DCC;
+$medblue: #527ACC;
+$darkblue: #3D6DCC;
 $pink: #CC6696;
 $gold: #CCA03D;
 $green: #47CC4A;
@@ -22,8 +22,10 @@ nav img, footer img {
 }
 
 h1 {
-  color: $gold;
-  background-color: $dark-blue;
+  color: $pink;
+  background-color: $darkblue;
+  text-decoration: underline wavy $green;
+  text-decoration-skip-ink: none;
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
   font-size: 250%;
   text-align: center;
@@ -31,7 +33,7 @@ h1 {
 }
 
 h2, h3 {
-  color: $dark-blue;
+  color: $darkblue;
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
   font-weight: lighter;
   text-decoration: underline wavy $green;

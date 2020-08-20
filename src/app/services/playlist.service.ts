@@ -16,4 +16,9 @@ export class PlaylistService {
     return of(PLAYLISTS);
   }
 
+  getPlaylist(id: number): Observable<Playlist> {
+    this.messageService.add(`PlaylistService: fetching playlist #${id}`);
+    return of(PLAYLISTS.find(playlist => playlist.id === id));
+  }
+
 }

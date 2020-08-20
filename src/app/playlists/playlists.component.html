@@ -3,7 +3,9 @@
   <ul>
     <li *ngFor="let playlist of playlists" [class.selected]="playlist === selectedPlaylist">
       #{{ playlist.id }} {{ playlist.name }} ({{ playlist.owner }})
+      <!-- Two approaches: function vs routing -->
       <button type="button" (click)="onSelect(playlist)">Select</button>
+      <button type="button" routerLink="/playlist/{{playlist.id}}">Redirect</button>
     </li>
   </ul>
 </div>

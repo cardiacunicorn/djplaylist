@@ -12,6 +12,8 @@ import { PlaylistsComponent } from './playlists/playlists.component';
 import { TracksComponent } from './tracks/tracks.component';
 import { PlaylistComponent } from './playlist/playlist.component';
 import { MessagesComponent } from './messages/messages.component';
+import { DocumentationComponent } from './documentation/documentation.component';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,9 @@ import { MessagesComponent } from './messages/messages.component';
     PlaylistsComponent,
     TracksComponent,
     PlaylistComponent,
-    MessagesComponent
+    MessagesComponent,
+    DocumentationComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
