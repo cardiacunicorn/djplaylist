@@ -7,13 +7,4 @@
     </li>
   </ul>
 </div>
-<div *ngIf="selectedPlaylist" class="playlist-details">
-  <h3>{{ selectedPlaylist.name }} by {{ selectedPlaylist.owner }}</h3>
-  <label for="selected-playlist-name">
-    Rename playlist, using two-way data-binding `[()]`:
-  </label>
-  <input [(ngModel)]="selectedPlaylist.name" type="text" name="selected-playlist-name" placeholder="name" />
-  <div class="track-listing">
-    {{ selectedPlaylist.tracks }}
-  </div>
-</div>
+<app-playlist [playlist]="selectedPlaylist"></app-playlist>

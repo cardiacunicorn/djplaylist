@@ -31,10 +31,11 @@ h1 {
 }
 
 h2, h3 {
-  color: $dark;
+  color: $dark-blue;
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
   font-weight: lighter;
   text-decoration: underline wavy $green;
+  text-decoration-skip-ink: none;
 }
 
 body {

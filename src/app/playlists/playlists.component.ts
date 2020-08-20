@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Playlist } from '../playlist';
-import { PLAYLISTS } from '../playlists';
+import { Playlist } from '../model/playlist';
+import { PLAYLISTS } from '../model/playlists';
 
 @Component({
   selector: 'app-playlists',
@@ -8,13 +8,6 @@ import { PLAYLISTS } from '../playlists';
   styleUrls: ['./playlists.component.scss']
 })
 export class PlaylistsComponent implements OnInit {
-
-  // playlist: Playlist = {
-  //   id: 1,
-  //   name: 'Test Playlist',
-  //   owner: 'Playlist Owner',
-  //   tracks: 'Track listing lorem ipsum'
-  // };
 
   playlists = PLAYLISTS;
   selectedPlaylist: Playlist;

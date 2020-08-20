@@ -10,6 +10,7 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { FooterComponent } from './footer/footer.component';
 import { PlaylistsComponent } from './playlists/playlists.component';
 import { TracksComponent } from './tracks/tracks.component';
+import { PlaylistComponent } from './playlist/playlist.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { TracksComponent } from './tracks/tracks.component';
     NavbarComponent,
     FooterComponent,
     PlaylistsComponent,
-    TracksComponent
+    TracksComponent,
+    PlaylistComponent
   ],
   imports: [
     BrowserModule,

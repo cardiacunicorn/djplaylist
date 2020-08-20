@@ -1,0 +1,10 @@
+<div *ngIf="playlist" class="playlist">
+  <h3>{{ playlist.name }} by {{ playlist.owner }}</h3>
+  <label for="playlist-name">
+    Rename playlist (ID: {{ playlist.id }}), using two-way data-binding `[()]`:
+  </label>
+  <input [(ngModel)]="playlist.name" type="text" name="playlist-name" placeholder="name" />
+  <div class="track-listing">
+    {{ playlist.tracks }}
+  </div>
+</div>
