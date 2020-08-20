@@ -11,6 +11,7 @@ import { FooterComponent } from './footer/footer.component';
 import { PlaylistsComponent } from './playlists/playlists.component';
 import { TracksComponent } from './tracks/tracks.component';
 import { PlaylistComponent } from './playlist/playlist.component';
+import { MessagesComponent } from './messages/messages.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { PlaylistComponent } from './playlist/playlist.component';
     FooterComponent,
     PlaylistsComponent,
     TracksComponent,
-    PlaylistComponent
+    PlaylistComponent,
+    MessagesComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,25 @@
+/* MessagesComponent's private CSS styles */
+button.clear {
+  background-color: #cfd8dc;
+  color: white;
+  border: none;
+  padding: 0.5vh 1vw;
+  border-radius: 5px;
+  margin: 1vw;
+  cursor: hand;
+}
+
+button:hover {
+  background-color: crimson;
+}
+
+button:disabled {
+  background-color: #eee;
+  color: #aaa;
+  text-decoration: line-through;
+  cursor: auto;
+}
+
+.message {
+  color: gold;
+}
