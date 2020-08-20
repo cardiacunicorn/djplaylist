@@ -1,8 +1,12 @@
+/* Application-wide Styles */
+
 $med-blue: #527ACC;
 $dark-blue: #3D6DCC;
 $pink: #CC6696;
 $gold: #CCA03D;
 $green: #47CC4A;
+$dark: #333;
+$light: #CCC;
 
 img {
   margin: 0 1vw;
@@ -15,4 +19,54 @@ a:hover {
 nav img, footer img {
   max-height: 3vh;
   max-width: 5vw;
+}
+
+h1 {
+  color: $gold;
+  background-color: $dark-blue;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-size: 250%;
+  text-align: center;
+  padding: 1vh 3vw;
+}
+
+h2, h3 {
+  color: $dark;
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-weight: lighter;
+  text-decoration: underline wavy $green;
+}
+
+body {
+  margin: 2em;
+}
+
+body, input[type="text"], button {
+  color: $dark;
+}
+/* everywhere else */
+* {
+  font-family: Tahoma, Geneva, sans-serif;
+}
+
+.playlists li {
+  cursor: pointer;
+  position: relative;
+  left: 0;
+  margin: .5em;
+  padding: .3em .5em;
+  border-radius: 4px;
+}
+.playlists li:hover {
+  color: white;
+  background-color: $pink;
+  left: 1em;
+}
+.playlists li.selected {
+  background-color: $green;
+  color: white;
+}
+.playlists li.selected:hover {
+  background-color: $green;
+  color: white;
 }

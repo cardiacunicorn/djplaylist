@@ -1,0 +1,19 @@
+<div class="playlists">
+  <h2>Playlists</h2>
+  <ul>
+    <li *ngFor="let playlist of playlists" [class.selected]="playlist === selectedPlaylist">
+      #{{ playlist.id }} {{ playlist.name }} ({{ playlist.owner }})
+      <button type="button" (click)="onSelect(playlist)">Select</button>
+    </li>
+  </ul>
+</div>
+<div *ngIf="selectedPlaylist" class="playlist-details">
+  <h3>{{ selectedPlaylist.name }} by {{ selectedPlaylist.owner }}</h3>
+  <label for="selected-playlist-name">
+    Rename playlist, using two-way data-binding `[()]`:
+  </label>
+  <input [(ngModel)]="selectedPlaylist.name" type="text" name="selected-playlist-name" placeholder="name" />
+  <div class="track-listing">
+    {{ selectedPlaylist.tracks }}
+  </div>
+</div>
