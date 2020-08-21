@@ -21,7 +21,7 @@ export class PlaylistComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getHero();
+    this.getHero(); // Hero not always selected in the places this component is displayed
   }
 
   getHero(): void {

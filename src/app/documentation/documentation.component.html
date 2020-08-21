@@ -1,2 +1,18 @@
 <h2>Documentation</h2>
-<p>Write up my documentation so far</p>
+<h4>Spotify Authentication</h4>
+<p>Spotify requires OAuth 2.0 authentication to make requests of a user's private playlists. This is acheieved using Node & Express from the serverside; to both protect this app's Spotify <code>clientid</code> and <code>clientsecret</code>, and as a gateway for direct writes to the database when storing access and refresh tokens.</p>
+<h5>OAuth Process:</h5>
+<ol>
+  <li>The Angular client requests authentication to begin, by sending the user to <code>/login</code> on the server.</li>
+  <li>The server sets a 'State' cookie and permission scopes, and redirects the user to the spotify authorize webpage, asking for their permission.</li>
+  <li>Once the user allows these permissions, they are re-directed to <code>/callback</code> on the server.</li>
+  <li>The <code>/callback</code> page runs a function that checks the State cookie, to make sure it's the same user & request.</li>
+  <li>The State cookie is cleared from the request.</li>
+  <li>The returned authorisation code, found in the response, is packaged with this app's clientid and clientsecret. This sensitive information shouldn't be accessible clientside, hence why this process happens serverside.</li>
+  <li>The authorisation is sent via <code>HTTP POST</code> to Spotify, and if a <code>#200</code> result is returned, then the access token and refresh token can be found in the Body of the HTTP Response.</li>
+  <li>The access token is time limited, but both should be stored in this app's database.</li>
+  <li>At this point, the access token can be used to make requests of the Spotify API, specifying endpoints that align with the scope(s) we got permission to access.</li>
+  <li>Error handling should exist for an invalid cookie, and similarly any non-<code>#200</code> response from Spotify.</li>
+  <li>If the access token has expired, the <code>/refresh_token</code> page runs a method on the server that should use the refresh token to generate and save a new access token for the user.</li>
+  <li>At this point the user should be re-directed back to the Angular clientside.</li>
+</ol>
