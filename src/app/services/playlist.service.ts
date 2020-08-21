@@ -40,12 +40,14 @@ export class PlaylistService {
   //   redirectUri: 'http://www.example.com/callback'
   // });
 
-  private playlistsUrl: string = 'http://localhost:8888/api/playlists';  // URL to web api, not currently used
+  private playlistsUrl: string = 'http://localhost:8888/api/playlists';
 
   constructor(
     private http: HttpClient,
     private messageService: MessageService
-  ) { this.http.get(this.playlistsUrl).subscribe(val => this.getMyString(val)); }
+  ) {
+    this.getPlaylistsFromServer();
+  }
 
   // Creates a message attributed to the PlaylistService
   private log(message: string) {
@@ -64,9 +66,36 @@ export class PlaylistService {
     return of(PLAYLISTS.find(playlist => playlist.id === id));
   }
 
+  getPlaylistsFromServer() {
+    this.http.get(this.playlistsUrl)
+      .pipe(catchError(this.handleError('getPlaylists', [])))
+      .subscribe(val => this.getMyString(val));
+  }
+
   getMyString(val): void {
     this.log(val.playlist);
     return;
+  }
+
+  // Definitely partly implemented...
+
+  /**
+   * Handle Http operation that failed - let the app continue.
+   * @param operation - name of the operation that failed
+   * @param result - optional value to return as the observable result
+   */
+  private handleError<T>(operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // TODO: better job of transforming error for user consumption
+      this.log(`${operation} failed: ${error.message}`);
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
   }
 
 }
