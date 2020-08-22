@@ -14,33 +14,9 @@ import { PLAYLISTS } from '../model/playlists';
 })
 export class PlaylistService {
 
-  // spotifyApi = new SpotifyWebApi({
-  //   clientId: 'cdb9be7d05ec4befac817dc97af74ad3',
-  //   clientSecret: 'c0f34e7a420c4a5993fdef0f1b62506b',
-  //   redirectUri: 'http://localhost:4200/playlists'
-  // });
-
-  // spotifyApi: SpotifyWebApi;
-  //
-  // initiate(): void {
-  //   this.spotifyApi = new SpotifyWebApi({
-  //     clientId: 'cdb9be7d05ec4befac817dc97af74ad3',
-  //     clientSecret: 'c0f34e7a420c4a5993fdef0f1b62506b',
-  //     redirectUri: 'http://localhost:4200/playlists'
-  //   });
-  //   this.log(`API initiated`)
-  // }
-
-  // var SpotifyWebApi = require('spotify-web-api-node');
-  //
-  // // credentials are optional
-  // var spotifyApi = new SpotifyWebApi({
-  //   clientId: 'fcecfc72172e4cd267473117a17cbd4d',
-  //   clientSecret: 'a6338157c9bb5ac9c71924cb2940e1a7',
-  //   redirectUri: 'http://www.example.com/callback'
-  // });
-
-  private playlistsUrl: string = 'http://localhost:8888/api/playlists';
+  private access_token: string = 'BQBrbLkCMeKG2iErjKsj7enb39r3e7MakP_GYA0v7FswC2YZZef7Wl8OmeQKkij96d5g-hRyPERFbhKplN68LCAttQ1R8RXu1d1ydYKUc9pJx2aLzY_E1-tvqrjK1XsZ1cSMHL3q8YzBcTMSakd_QWEh2dsp7QbavaRu1a1Cw8NdYfP9wqUGzGyXeSHvJfmpcSqs5cZkl21uqYcs296f_dSXvdQ7xLdhQkT6X_XAPg';
+  private playlistsUrl: string = 'http://localhost:8888/api/getmyplaylists?access_token=' + this.access_token;
+  private playlists = [];
 
   constructor(
     private http: HttpClient,
@@ -67,35 +43,53 @@ export class PlaylistService {
   }
 
   getPlaylistsFromServer() {
-    this.http.get(this.playlistsUrl)
-      .pipe(catchError(this.handleError('getPlaylists', [])))
-      .subscribe(val => this.getMyString(val));
+    // this.http.get(this.playlistsUrl)
+    //   .pipe(catchError(this.handleError('getPlaylists', [])))
+    //   .subscribe(playlists => this.getMyString(playlists));
+
+    // I need to implement as the above, because the component is Observing
+
+    this.http.get(this.playlistsUrl).toPromise().then(data => {
+
+      for (let key in data.playlists) {
+        this.playlists.push(data.playlists[key]);
+      }
+      console.log(this.playlists[0]);
+      this.log(this.playlists[0].name);
+      this.playlists.forEach(element => {
+        this.log("Loaded your \'" + element.name + "\' playlist");
+      });
+    });
+
+    return this.playlists;
+
   }
 
-  getMyString(val): void {
-    this.log(val.playlist);
-    return;
-  }
+  // getMyString(playlists): void {
+  //   console.log(playlists.json);
+  //   this.log(playlists);
+  //   return;
+  // }
 
   // Definitely partly implemented...
 
-  /**
-   * Handle Http operation that failed - let the app continue.
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      this.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
-  }
+  // /**
+  //  * Handle Http operation that failed - let the app continue.
+  //  * @param operation - name of the operation that failed
+  //  * @param result - optional value to return as the observable result
+  //  */
+  // private handleError<T>(operation = 'operation', result?: T) {
+  //   return (error: any): Observable<T> => {
+  //
+  //     // TODO: send the error to remote logging infrastructure
+  //     console.error(error); // log to console instead
+  //
+  //     // TODO: better job of transforming error for user consumption
+  //     this.log(`${operation} failed: ${error.message}`);
+  //
+  //     // Let the app keep running by returning an empty result.
+  //     return of(result as T);
+  //   };
+  // }
 
 }

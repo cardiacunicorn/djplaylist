@@ -13,6 +13,8 @@ export class PlaylistsComponent implements OnInit {
   playlists: Playlist[];
   selectedPlaylist: Playlist;
 
+  retrievedPlaylists = [];
+
   constructor(private playlistService: PlaylistService, private messageService: MessageService) { }
 
   ngOnInit(): void {
@@ -21,6 +23,8 @@ export class PlaylistsComponent implements OnInit {
 
   getPlaylists(): void {
     this.playlistService.getPlaylists().subscribe(playlists => this.playlists = playlists);
+    this.retrievedPlaylists = this.playlistService.getPlaylists().subscribe(playlists => this.retrievedPlaylists = playlists);
+    console.log(this.retrievedPlaylists);
   }
 
   onSelect(playlist: Playlist): void {
