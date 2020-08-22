@@ -1,13 +1,30 @@
 <div class="tracks">
   <h2>Tracks</h2>
-  <ol>
-    <li *ngFor="let track of tracks" [class.selected]="track === selectedTrack">
-      {{ track.name }} by {{ track.artists[0].name }}
-      <button type="button" (click)="moveUp(track)">⬆️</button>
-      <button type="button" (click)="moveDown(track)">⬇️</button>
-      <!-- Two approaches: function vs routing -->
-      <!-- <button type="button" (click)="onSelect(playlist)">Select</button>
-      <button type="button" routerLink="/playlist/{{ playlist.id }}">Redirect</button> -->
-    </li>
-  </ol>
+  <table class="table table-striped table-dark">
+    <thead class="thead-dark">
+      <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Track</th>
+        <th scope="col">Artist</th>
+        <th scope="col">Popularity</th>
+        <th scope="col">Danceability</th>
+        <th scope="col">Tempo</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let track of tracks">
+        <td>{{ track.id }}</td>
+        <td>{{ track.basic.name }}</td>
+        <td>{{ track.basic.artists[0].name }}<span *ngIf="track.basic.artists[1]"> & {{ track.basic.artists[1].name }}</span></td>
+        <td>{{ track.basic.popularity }}</td>
+        <td>{{ track.advanced.danceability }}</td>
+        <td>{{ track.advanced.tempo }}</td>
+        <td>
+          <button type="button" class="btn btn-success" (click)="moveUp(track)">⬆️</button>
+          <button type="button" class="btn btn-warning" (click)="moveDown(track)">⬇️</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

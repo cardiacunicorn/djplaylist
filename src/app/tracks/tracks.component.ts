@@ -34,4 +34,12 @@ export class TracksComponent implements OnInit {
     }
   }
 
+  moveUp(track: Track): void {
+    console.log("Move "+track.name+" up");
+  }
+
+  moveDown(track: Track): void {
+    console.log("Move "+track.name+" down");
+  }
+
 }
