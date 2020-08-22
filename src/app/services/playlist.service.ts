@@ -9,13 +9,12 @@ import { Playlist, SpotifyPlaylist } from '../model/playlist';
 import { Owner } from '../model/owner';
 import { PLAYLISTS } from '../model/playlists';
 
-// import { SpotifyWebApi } from 'spotify-web-api-node';
-
 @Injectable({
   providedIn: 'root'
 })
 export class PlaylistService {
 
+  // Does the service need to store the playlists?
   playlists: SpotifyPlaylist[] = [];
 
   constructor(
@@ -29,73 +28,25 @@ export class PlaylistService {
     this.messageService.add(`PlaylistService: ${message}`);
   }
 
-  getPlaylists(): SpotifyPlaylist[] {
+  getPlaylists(): Observable<SpotifyPlaylist[]> {
     let playlistsUrl: string = 'http://localhost:8888/api/getmyplaylists?access_token=' + this.authoriseService.access_token;
 
-    this.http.get(playlistsUrl).toPromise().then(data => {
-      for (let key in data.playlists) {
-        this.playlists.push(data.playlists[key]);
-        // this.log("Loaded your \'" + data.playlists[name]+ "\' playlist");
-      }
-      this.playlists.forEach(element => {
-        this.log("Loaded your \'" + element.name + "\' playlist");
-      });
-    });
-
-    // Instead of the above, I need to make the playlist array observable
-
-    this.log(`Fetched Playlists`);
-    return this.playlists;
-  }
-
-  getObservablePlaylists(): Observable<SpotifyPlaylist[]> {
-    let playlistsUrl: string = 'http://localhost:8888/api/getmyplaylists?access_token=' + this.authoriseService.access_token;
+    // Is this necessary?
     // clear playlists from memory
     this.playlists = [];
-
     var result;
     this.http.get(playlistsUrl).subscribe(result => {
       console.log(result);
-      console.log(result[0]);
     });
+
     return this.http.get<SpotifyPlaylist[]>(playlistsUrl);
   }
-
-  // getPlaylists(): Observable<Playlist[]> {
-  //   this.log(`fetched playlists`);
-  //   // Currently simulating an async observable array of playlists
-  //   return of(PLAYLISTS);
-  // }
 
   getPlaylist(id: number): Observable<Playlist> {
     this.log(`fetching playlist #${id}`);
     // Currently simulating an async observable playlist
     return of(PLAYLISTS.find(playlist => playlist.id === id));
   }
-
-  // getPlaylistsFromServer(): SpotifyPlaylist[] {
-  //   // this.http.get(this.playlistsUrl)
-  //   //   .pipe(catchError(this.handleError('getPlaylists', [])))
-  //   //   .subscribe(playlists => this.getMyString(playlists));
-  //
-  //   // I need to implement as the above, because the component is Observing
-  //
-  //   let playlistsUrl: string = 'http://localhost:8888/api/getmyplaylists?access_token=' + this.authoriseService.access_token;
-  //
-  //   this.http.get(playlistsUrl).toPromise().then(data => {
-  //
-  //     for (let key in data.playlists) {
-  //       this.playlists.push(data.playlists[key]);
-  //       // this.log("Loaded your \'" + data.playlists[name]+ "\' playlist");
-  //     }
-  //     this.playlists.forEach(element => {
-  //       this.log("Loaded your \'" + element.name + "\' playlist");
-  //     });
-  //   });
-  //
-  //   return this.playlists;
-  //
-  // }
 
   // Definitely partly implemented...
 
