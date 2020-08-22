@@ -22,12 +22,7 @@ export class PlaylistService {
     private http: HttpClient,
     private messageService: MessageService,
     private authoriseService: AuthoriseService
-  ) {
-
-    // Component requests this on their init, not here
-    // this.getPlaylistsFromServer();
-
-  }
+  ) { }
 
   // Creates a message attributed to the PlaylistService
   private log(message: string) {
@@ -46,8 +41,24 @@ export class PlaylistService {
         this.log("Loaded your \'" + element.name + "\' playlist");
       });
     });
+
+    // Instead of the above, I need to make the playlist array observable
+
     this.log(`Fetched Playlists`);
     return this.playlists;
+  }
+
+  getObservablePlaylists(): Observable<SpotifyPlaylist[]> {
+    let playlistsUrl: string = 'http://localhost:8888/api/getmyplaylists?access_token=' + this.authoriseService.access_token;
+    // clear playlists from memory
+    this.playlists = [];
+
+    var result;
+    this.http.get(playlistsUrl).subscribe(result => {
+      console.log(result);
+      console.log(result[0]);
+    });
+    return this.http.get<SpotifyPlaylist[]>(playlistsUrl);
   }
 
   // getPlaylists(): Observable<Playlist[]> {

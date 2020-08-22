@@ -2,7 +2,7 @@
   <h2>Playlists</h2>
   <ul>
     <li *ngFor="let playlist of playlists" [class.selected]="playlist === selectedPlaylist">
-      {{ playlist.name }} by {{ playlist.owner.name }}
+      {{ playlist.name }} by {{ playlist.owner.display_name }}
       <!-- Two approaches: function vs routing -->
       <button type="button" (click)="onSelect(playlist)">Select</button>
       <button type="button" routerLink="/playlist/{{playlist.id}}">Redirect</button>
