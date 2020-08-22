@@ -13,8 +13,6 @@ import { SpotifyPlaylist, Owner, Track } from '../model/playlist';
 })
 export class TrackService {
 
-  public tracks: Track[];
-
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
@@ -29,14 +27,6 @@ export class TrackService {
 
   getTracks(playlistID: string): Observable<Track[]> {
     let tracklistsUrl: string = this.remoteconnect.server + '/api/gettracks?access_token=' + this.authoriseService.access_token + '&playlistID=' + playlistID;
-    // Is this necessary?
-    // clear playlists from memory
-    this.tracks = [];
-    var result;
-    this.http.get(tracklistsUrl).subscribe(result => {
-      console.log(result);
-    });
-
     return this.http.get<Track[]>(tracklistsUrl);
   }
 

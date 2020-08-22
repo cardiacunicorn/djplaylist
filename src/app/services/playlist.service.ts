@@ -13,9 +13,6 @@ import { SpotifyPlaylist, Owner } from '../model/playlist';
 })
 export class PlaylistService {
 
-  // Does the service need to store the playlists?
-  playlists: SpotifyPlaylist[] = [];
-
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
@@ -30,15 +27,6 @@ export class PlaylistService {
 
   getPlaylists(): Observable<SpotifyPlaylist[]> {
     let playlistsUrl: string = this.remoteconnect.server + '/api/getmyplaylists?access_token=' + this.authoriseService.access_token;
-
-    // Is this necessary?
-    // clear playlists from memory
-    this.playlists = [];
-    var result;
-    this.http.get(playlistsUrl).subscribe(result => {
-      console.log(result);
-    });
-
     return this.http.get<SpotifyPlaylist[]>(playlistsUrl);
   }
 
