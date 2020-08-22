@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { ActivatedRoute } from "@angular/router";
+import { AuthoriseService } from '../services/authorise.service';
+
 
 @Component({
   selector: 'app-home',
@@ -8,26 +11,19 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 })
 export class HomeComponent implements OnInit {
 
-  clientid: string = 'cdb9be7d05ec4befac817dc97af74ad3';
-  redirect_uri: string = 'http://localhost:4200/playlists';
-
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private route: ActivatedRoute,
+    private authoriseService: AuthoriseService
   ) { }
 
   ngOnInit(): void {
-    
+    if (this.authoriseService.access_token == "No token") {
+      this.authoriseService.access_token = this.route.snapshot.queryParamMap.get("access_token");
+      this.authoriseService.refresh_token = this.route.snapshot.queryParamMap.get("refresh_token");
+      console.log("Access token: "+(this.authoriseService.access_token || "None found"));
+      console.log("Refresh token: "+(this.authoriseService.refresh_token || "None found"));
+    }
   }
-
-  // generateRequest(): void {
-  //   this.http.get('/login', function(req, res) {
-  //   var scopes = 'user-read-private user-read-email';
-  //   res.redirect('https://accounts.spotify.com/authorize' +
-  //     '?response_type=code' +
-  //     '&client_id=' + this.clientid +
-  //     (scopes ? '&scope=' + encodeURIComponent(scopes) : '') +
-  //     '&redirect_uri=' + encodeURIComponent(this.redirect_uri));
-  //   });
-  // }
 
 }

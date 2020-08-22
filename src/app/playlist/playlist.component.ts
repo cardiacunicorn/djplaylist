@@ -21,10 +21,10 @@ export class PlaylistComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getHero(); // Hero not always selected in the places this component is displayed
+    this.getPlaylist(); // Hero not always selected in the places this component is displayed
   }
 
-  getHero(): void {
+  getPlaylist(): void {
     const id = +this.route.snapshot.paramMap.get('id'); // + converts to number from string
     this.playlistService.getPlaylist(id).subscribe(playlist => this.playlist = playlist);
   }

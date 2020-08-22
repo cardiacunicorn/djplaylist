@@ -4,7 +4,9 @@ import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 
 import { MessageService } from './message.service';
-import { Playlist } from '../model/playlist';
+import { AuthoriseService } from '../services/authorise.service';
+import { Playlist, SpotifyPlaylist } from '../model/playlist';
+import { Owner } from '../model/owner';
 import { PLAYLISTS } from '../model/playlists';
 
 // import { SpotifyWebApi } from 'spotify-web-api-node';
@@ -14,15 +16,17 @@ import { PLAYLISTS } from '../model/playlists';
 })
 export class PlaylistService {
 
-  private access_token: string = 'BQBrbLkCMeKG2iErjKsj7enb39r3e7MakP_GYA0v7FswC2YZZef7Wl8OmeQKkij96d5g-hRyPERFbhKplN68LCAttQ1R8RXu1d1ydYKUc9pJx2aLzY_E1-tvqrjK1XsZ1cSMHL3q8YzBcTMSakd_QWEh2dsp7QbavaRu1a1Cw8NdYfP9wqUGzGyXeSHvJfmpcSqs5cZkl21uqYcs296f_dSXvdQ7xLdhQkT6X_XAPg';
-  private playlistsUrl: string = 'http://localhost:8888/api/getmyplaylists?access_token=' + this.access_token;
-  private playlists = [];
+  playlists: SpotifyPlaylist[] = [];
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private authoriseService: AuthoriseService
   ) {
-    this.getPlaylistsFromServer();
+
+    // Component requests this on their init, not here
+    // this.getPlaylistsFromServer();
+
   }
 
   // Creates a message attributed to the PlaylistService
@@ -30,11 +34,27 @@ export class PlaylistService {
     this.messageService.add(`PlaylistService: ${message}`);
   }
 
-  getPlaylists(): Observable<Playlist[]> {
-    this.log(`fetched playlists`);
-    // Currently simulating an async observable array of playlists
-    return of(PLAYLISTS);
+  getPlaylists(): SpotifyPlaylist[] {
+    let playlistsUrl: string = 'http://localhost:8888/api/getmyplaylists?access_token=' + this.authoriseService.access_token;
+
+    this.http.get(playlistsUrl).toPromise().then(data => {
+      for (let key in data.playlists) {
+        this.playlists.push(data.playlists[key]);
+        // this.log("Loaded your \'" + data.playlists[name]+ "\' playlist");
+      }
+      this.playlists.forEach(element => {
+        this.log("Loaded your \'" + element.name + "\' playlist");
+      });
+    });
+    this.log(`Fetched Playlists`);
+    return this.playlists;
   }
+
+  // getPlaylists(): Observable<Playlist[]> {
+  //   this.log(`fetched playlists`);
+  //   // Currently simulating an async observable array of playlists
+  //   return of(PLAYLISTS);
+  // }
 
   getPlaylist(id: number): Observable<Playlist> {
     this.log(`fetching playlist #${id}`);
@@ -42,33 +62,28 @@ export class PlaylistService {
     return of(PLAYLISTS.find(playlist => playlist.id === id));
   }
 
-  getPlaylistsFromServer() {
-    // this.http.get(this.playlistsUrl)
-    //   .pipe(catchError(this.handleError('getPlaylists', [])))
-    //   .subscribe(playlists => this.getMyString(playlists));
-
-    // I need to implement as the above, because the component is Observing
-
-    this.http.get(this.playlistsUrl).toPromise().then(data => {
-
-      for (let key in data.playlists) {
-        this.playlists.push(data.playlists[key]);
-      }
-      console.log(this.playlists[0]);
-      this.log(this.playlists[0].name);
-      this.playlists.forEach(element => {
-        this.log("Loaded your \'" + element.name + "\' playlist");
-      });
-    });
-
-    return this.playlists;
-
-  }
-
-  // getMyString(playlists): void {
-  //   console.log(playlists.json);
-  //   this.log(playlists);
-  //   return;
+  // getPlaylistsFromServer(): SpotifyPlaylist[] {
+  //   // this.http.get(this.playlistsUrl)
+  //   //   .pipe(catchError(this.handleError('getPlaylists', [])))
+  //   //   .subscribe(playlists => this.getMyString(playlists));
+  //
+  //   // I need to implement as the above, because the component is Observing
+  //
+  //   let playlistsUrl: string = 'http://localhost:8888/api/getmyplaylists?access_token=' + this.authoriseService.access_token;
+  //
+  //   this.http.get(playlistsUrl).toPromise().then(data => {
+  //
+  //     for (let key in data.playlists) {
+  //       this.playlists.push(data.playlists[key]);
+  //       // this.log("Loaded your \'" + data.playlists[name]+ "\' playlist");
+  //     }
+  //     this.playlists.forEach(element => {
+  //       this.log("Loaded your \'" + element.name + "\' playlist");
+  //     });
+  //   });
+  //
+  //   return this.playlists;
+  //
   // }
 
   // Definitely partly implemented...

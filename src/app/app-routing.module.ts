@@ -9,7 +9,7 @@ import { DocumentationComponent } from './documentation/documentation.component'
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'login', redirectTo: '', pathMatch: 'full' }, // FIXME: Need a login component
+  { path: 'login', redirectTo: '', pathMatch: 'full' }, // route not used, overriden in Navbar
   { path: 'playlists', component: PlaylistsComponent },
   { path: 'playlist/:id', component: PlaylistComponent },
   { path: 'tracks', component: TracksComponent },
