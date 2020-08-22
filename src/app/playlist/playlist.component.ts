@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { Playlist } from '../model/playlist';
+import { SpotifyPlaylist, Owner } from '../model/playlist';
 import { PlaylistService } from '../services/playlist.service';
 
 @Component({
@@ -12,7 +12,7 @@ import { PlaylistService } from '../services/playlist.service';
 })
 export class PlaylistComponent implements OnInit {
 
-  @Input() playlist: Playlist;
+  @Input() playlist: SpotifyPlaylist;
 
   constructor(
     private route: ActivatedRoute,

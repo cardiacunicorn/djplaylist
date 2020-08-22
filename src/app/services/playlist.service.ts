@@ -5,9 +5,8 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { MessageService } from './message.service';
 import { AuthoriseService } from '../services/authorise.service';
-import { Playlist, SpotifyPlaylist } from '../model/playlist';
-import { Owner } from '../model/owner';
-import { PLAYLISTS } from '../model/playlists';
+import { RemoteconnectService } from '../services/remoteconnect.service';
+import { SpotifyPlaylist, Owner } from '../model/playlist';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +19,8 @@ export class PlaylistService {
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
-    private authoriseService: AuthoriseService
+    private authoriseService: AuthoriseService,
+    private remoteconnect: RemoteconnectService
   ) { }
 
   // Creates a message attributed to the PlaylistService
@@ -29,7 +29,7 @@ export class PlaylistService {
   }
 
   getPlaylists(): Observable<SpotifyPlaylist[]> {
-    let playlistsUrl: string = 'http://localhost:8888/api/getmyplaylists?access_token=' + this.authoriseService.access_token;
+    let playlistsUrl: string = this.remoteconnect.server + '/api/getmyplaylists?access_token=' + this.authoriseService.access_token;
 
     // Is this necessary?
     // clear playlists from memory
@@ -42,10 +42,11 @@ export class PlaylistService {
     return this.http.get<SpotifyPlaylist[]>(playlistsUrl);
   }
 
-  getPlaylist(id: number): Observable<Playlist> {
+  getPlaylist(id: number): Observable<SpotifyPlaylist> {
     this.log(`fetching playlist #${id}`);
     // Currently simulating an async observable playlist
-    return of(PLAYLISTS.find(playlist => playlist.id === id));
+    // return of(PLAYLISTS.find(playlist => playlist.id === id));
+    return of();
   }
 
   // Definitely partly implemented...

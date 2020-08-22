@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 
-import { Playlist, SpotifyPlaylist } from '../model/playlist';
-import { Owner } from '../model/owner';
+import { SpotifyPlaylist, Owner } from '../model/playlist';
 import { PlaylistService } from '../services/playlist.service';
 import { MessageService } from '../services/message.service';
 import { AuthoriseService } from '../services/authorise.service';

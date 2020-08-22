@@ -1,12 +1,3 @@
-import { Owner } from './owner';
-
-export interface Playlist {
-  id: number;
-  name: string;
-  owner: string;
-  tracks: string;
-}
-
 export interface SpotifyPlaylist {
   id: string;
   name: string;
@@ -19,4 +10,17 @@ export interface SpotifyPlaylist {
   owner: Owner;
   tracks: object;
   images: object[];
+}
+
+export interface Track {
+  id: string;
+  name: string;
+}
+
+export interface Owner {
+  id: string;
+  display_name: string;
+  uri: string;
+  href: string;
+  type: string;
 }

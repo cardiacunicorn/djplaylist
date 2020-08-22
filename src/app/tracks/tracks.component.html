@@ -1,8 +1,13 @@
 <div class="tracks">
   <h2>Tracks</h2>
   <ol>
-    <li>Track 1</li>
-    <li>Track 2</li>
-    <li>Track 3</li>
+    <li *ngFor="let track of tracks" [class.selected]="track === selectedTrack">
+      {{ track.name }} by {{ track.artists[0].name }}
+      <button type="button" (click)="moveUp(track)">⬆️</button>
+      <button type="button" (click)="moveDown(track)">⬇️</button>
+      <!-- Two approaches: function vs routing -->
+      <!-- <button type="button" (click)="onSelect(playlist)">Select</button>
+      <button type="button" routerLink="/playlist/{{ playlist.id }}">Redirect</button> -->
+    </li>
   </ol>
 </div>
