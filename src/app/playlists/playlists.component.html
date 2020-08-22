@@ -2,6 +2,7 @@
   <h2>Playlists</h2>
   <ul>
     <li *ngFor="let playlist of playlists" [class.selected]="playlist === selectedPlaylist">
+      <img *ngIf="playlist.images[0].url" [src]="playlist.images[0].url" class="playlist-coverart"/>
       {{ playlist.name }} by {{ playlist.owner.display_name }}
       <!-- Two approaches: function vs routing -->
       <button type="button" (click)="onSelect(playlist)">Select</button>

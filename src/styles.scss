@@ -73,3 +73,8 @@ body, input[type="text"], button {
   background-color: $green;
   color: white;
 }
+
+.playlist-coverart {
+  max-width: 100px;
+  max-height: 100px;
+}

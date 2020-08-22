@@ -18,5 +18,5 @@ export interface SpotifyPlaylist {
   type: string;
   owner: Owner;
   tracks: object;
-  // images: object[];
+  images: object[];
 }
