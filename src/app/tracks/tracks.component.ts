@@ -22,6 +22,10 @@ export class TracksComponent implements OnInit {
     // this.getTracks();
   }
 
+  sortBy(sortArgument): void {
+    console.log(sortArgument);
+  }
+
   playSample(trackid: string): void {
     var audio = <HTMLAudioElement>document.getElementById(trackid);
     if(audio.paused) {

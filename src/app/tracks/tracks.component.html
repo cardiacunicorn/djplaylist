@@ -6,13 +6,25 @@
         <th class="align-middle" scope="col">Track</th>
         <th class="align-middle" scope="col">Artist</th>
         <th class="align-middle centre-cell" scope="col">
-          <button class="btn btn-info" type="button" name="popularity">Popularity</button>
+          <div class="btn-group btn-group-sm" role="group">
+            <button #popdesc name="popdesc" (click)="sortBy(popdesc.name)" class="btn btn-dark" type="button" aria-label="Sort descending">↓</button>
+            <div class="mx-1">Popularity</div>
+            <button #popasc name="popasc" (click)="sortBy(popasc.name)" class="btn btn-dark" type="button" aria-label="Sort ascending">↑</button>
+          </div>
         </th>
         <th class="align-middle centre-cell" scope="col">
-          <button class="btn btn-info" type="button" name="danceability">Danceability</button>
+          <div class="btn-group btn-group-sm" role="group">
+            <button #dancedesc name="dancedesc" (click)="sortBy(dancedesc.name)" class="btn btn-dark" type="button" aria-label="Sort descending">↓</button>
+            <div class="mx-1">Danceability</div>
+            <button #danceasc name="danceasc" (click)="sortBy(danceasc.name)" class="btn btn-dark" type="button" aria-label="Sort ascending">↑</button>
+          </div>
         </th>
         <th class="align-middle centre-cell" scope="col">
-          <button class="btn btn-info" type="button" name="tempo">Tempo</button>
+          <div class="btn-group btn-group-sm" role="group">
+            <button #tempodesc name="tempodesc" (click)="sortBy(tempodesc.name)" class="btn btn-dark" type="button" aria-label="Sort descending">↓</button>
+            <div class="mx-1">Tempo</div>
+            <button #tempoasc name="tempoasc" (click)="sortBy(tempoasc.name)" class="btn btn-dark" type="button" aria-label="Sort ascending">↑</button>
+          </div>
         </th>
         <th class="align-middle centre-cell" scope="col">Actions</th>
       </tr>
@@ -28,9 +40,9 @@
         <td class="align-middle centre-cell">{{ track.advanced.tempo }}</td>
         <td class="align-middle centre-cell">
           <div class="btn-group btn-group-sm" role="group">
-            <button type="button" class="btn btn-info" (click)="playSample(track.id)">►</button>
-            <button type="button" class="btn btn-success" (click)="moveUp(track)">↑</button>
-            <button type="button" class="btn btn-danger" (click)="moveDown(track)">↓</button>
+            <button type="button" class="btn btn-info" (click)="playSample(track.id)" aria-label="Play or Pause">►</button>
+            <button type="button" class="btn btn-success" (click)="moveUp(track)" aria-label="Move up">↑</button>
+            <button type="button" class="btn btn-danger" (click)="moveDown(track)" aria-label="Move down">↓</button>
             <audio [id]="track.id" [src]="track.basic.preview_url"></audio>
           </div>
         </td>
