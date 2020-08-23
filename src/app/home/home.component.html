@@ -2,6 +2,13 @@
   <div class="row">
     <div class="col text-center">
       <h1 class="my-3">Welcome to DJ Playlist</h1>
+      <div class="intro">
+        <p>Let's admit it, you've already got an amazing selection of songs on that Spotify playlist you made. But, as good as that groovy 🎵🎷🎶 jazz song is, it can feel out of place when it's played straight after that sleeper punk hit 🥁🔥🎸</p>
+        <p>DJ Playlist allows you to log in to your Spotify account, grab that playlist, and re-order those great songs into a playlist that makes more sense. No more shuffle, no more skipping songs when they cause the mood to shift 😩🤮</p>
+        <p>The advanced metrics 📈 provided for each song means that you can curate your playlists for the context your play them in: be it a dancefloor 💃 going for a run 🏃‍♀️ or just ramping up from obscure indie 🪕🎹 to the latest pop 👩‍🎤🎤</p>
+        <p>You'll understand better once you see these metrics 😉</p>
+        <p><strong>Get started by logging in to Spotify below:</strong></p>
+      </div>
       <a *ngIf="!access_token" class="btn btn-success"  href="http://localhost:8888/login" name="login">Log in to Spotify</a>
       <div *ngIf="access_token">
         <p>Successfully logged in to Spotify!</p>

@@ -9,6 +9,7 @@ $dark: #333;
 $light: #CCC;
 
 body {
+  font-family: Tahoma, Geneva, sans-serif;
   background-color: #282c34;
   color: white;
 }
@@ -46,28 +47,15 @@ app-messages {
   min-height: 25vh;
 }
 
+/* Images */
+
 img {
   margin: 0 1rem;
-}
-
-.nav-link {
-  opacity: 1;
-}
-
-a:hover {
-  opacity: 0.7;
 }
 
 nav img {
   max-width: 4vw;
   max-height: 100%;
-}
-
-.footer {
-  position: fixed;
-  left: 0;
-  bottom: 0;
-  width: 100%;
 }
 
 footer img {
@@ -76,27 +64,42 @@ footer img {
   max-height: 100%;
 }
 
+/* Text */
+
+a:hover {
+  opacity: 0.7;
+}
+
+code {
+  font-family: 'Courier New',Menlo, monospace;
+  font-weight: 600;
+  font-size: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 1.5rem 0;
+  color: $pink;
+  text-decoration: underline $gold;
+}
+
+h1, h2, h3 {
+  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+  font-weight: lighter;
+  text-decoration: underline wavy $green;
+  text-decoration-skip-ink: none;
+  text-underline-offset: 1em;
+}
+
 h1 {
   font-size: 250%;
   text-align: center;
   padding: 1vh 3vw;
 }
 
-h1, h2, h3 {
-  color: $pink;
-  font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
-  font-weight: lighter;
-  text-decoration: underline wavy $green;
-  text-decoration-skip-ink: none;
-}
+/* Other elements */
 
 hr {
   border-color: $gold;
-}
-
-/* everywhere else */
-* {
-  font-family: Tahoma, Geneva, sans-serif;
 }
 
 .playlists li {
@@ -151,4 +154,15 @@ hr {
 
 .centre-cell {
   text-align: center;
+}
+
+.nav-link {
+  opacity: 1;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
 }

@@ -1,6 +1,6 @@
 <div *ngIf="playlist" class="playlist">
   <div id="playlist-info">
-    <h2>Playlist: {{ playlist.name }}</h2>
+    <h2>Playlist: <em>{{ playlist.name }}</em></h2>
     <p>{{ playlist.tracks.total }} tracks by {{ playlist.owner.display_name }}</p>
   </div>
   <hr />
