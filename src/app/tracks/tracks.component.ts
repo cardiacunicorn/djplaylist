@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { SpotifyPlaylist, Track } from '../model/playlist';
@@ -14,25 +14,26 @@ import { AuthoriseService } from '../services/authorise.service';
 export class TracksComponent implements OnInit {
 
   selectedTrack: Track;
-  tracks: Track[];
+  @Input() tracks: Track[];
 
   constructor(private trackService: TrackService, private messageService: MessageService, private authoriseService: AuthoriseService) { }
 
   ngOnInit(): void {
-    this.getTracks();
+    // Because the track component is being fed an input of Tracks, I shouldn't need to getTracks here.
+    // this.getTracks();
   }
 
-  getTracks() {
-    console.log("Access Token: "+this.authoriseService.access_token);
-    if (this.authoriseService.access_token != "No token") {
-      this.trackService.getTracks("1qdcXSvXuSAjt4GQjir7iZ").subscribe(tracks => {
-        // Once aync operation completes...
-        this.tracks = tracks;
-        console.log(this.tracks);
-        console.log(this.tracks[0]);
-      });
-    }
-  }
+  // getTracks() {
+  //   console.log("Access Token: "+this.authoriseService.access_token);
+  //   if (this.authoriseService.access_token != "No token") {
+  //     this.trackService.getTracks("1qdcXSvXuSAjt4GQjir7iZ").subscribe(tracks => {
+  //       // Once aync operation completes...
+  //       this.tracks = tracks;
+  //       console.log(this.tracks);
+  //       console.log(this.tracks[0]);
+  //     });
+  //   }
+  // }
 
   moveUp(track: Track): void {
     // console.log("Move "+track.basic.name+" up");

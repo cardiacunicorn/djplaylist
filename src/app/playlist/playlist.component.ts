@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
 
-import { SpotifyPlaylist, Owner } from '../model/playlist';
+import { SpotifyPlaylist, Owner, Track } from '../model/playlist';
 import { PlaylistService } from '../services/playlist.service';
 import { TrackService } from '../services/track.service';
 
@@ -13,7 +13,9 @@ import { TrackService } from '../services/track.service';
 })
 export class PlaylistComponent implements OnInit {
 
+  // Input means that this component can receive a playlist parameter
   @Input() playlist: SpotifyPlaylist;
+  public tracks: Track[];
 
   constructor(
     private route: ActivatedRoute,
@@ -23,21 +25,15 @@ export class PlaylistComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.getPlaylist(); // Hero not always selected in the places this component is displayed
+    this.getPlaylist();
   }
 
   getPlaylist(): void {
     const id = this.route.snapshot.paramMap.get('id');
     this.playlistService.getPlaylist(id).subscribe(playlist => this.playlist = playlist);
+    // Then get the tracks
+    this.trackService.getTracks(id).subscribe(tracks => this.tracks = tracks);
   }
-
-  // getPlaylist(): void {
-  //   const id = this.route.snapshot.paramMap.get('id');
-  //   this.playlistService.getPlaylist(id).subscribe(playlist => {
-  //     console.log(playlist);
-  //     this.playlist = playlist;
-  //   });
-  // }
 
   goBack(): void {
     this.location.back();

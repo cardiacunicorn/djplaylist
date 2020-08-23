@@ -14,7 +14,9 @@
     <tbody>
       <tr *ngFor="let track of tracks">
         <td>{{ track.basic.name }}</td>
-        <td>{{ track.basic.artists[0].name }}<span *ngIf="track.basic.artists[1]"> & {{ track.basic.artists[1].name }}</span></td>
+        <td>
+          {{ track.basic.artists[0].name }}<span *ngIf="track.basic.artists[1]"> & {{ track.basic.artists[1].name }}</span>
+        </td>
         <td>{{ track.basic.popularity }}</td>
         <td>{{ track.advanced.danceability }}</td>
         <td>{{ track.advanced.tempo }}</td>

@@ -8,5 +8,9 @@
     <li>Tracks: {{ playlist.tracks.total }}</li>
     <li>TracksURL: {{ playlist.tracks.href }}</li>
   </ol>
+
+  <app-tracks [tracks]="tracks"></app-tracks>
+  <!-- <app-playlist [playlist]="selectedPlaylist"></app-playlist> -->
+
   <button (click)="goBack()">Back</button>
 </div>
