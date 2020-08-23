@@ -24,6 +24,55 @@ export class TracksComponent implements OnInit {
 
   sortBy(sortArgument): void {
     console.log(sortArgument);
+    switch (sortArgument) {
+      case "popasc":
+      {
+        this.byPopularity();
+        break;
+      }
+      case "popdesc":
+      {
+        this.byPopularity();
+        this.tracks.reverse();
+        break;
+      }
+      case "danceasc":
+      {
+        this.byDanceability();
+        break;
+      }
+      case "dancedesc":
+      {
+        this.byDanceability();
+        this.tracks.reverse();
+        break;
+      }
+      case "tempoasc":
+      {
+        this.byTempo();
+        break;
+      }
+      case "tempodesc":
+      {
+        this.byTempo();
+        this.tracks.reverse();
+        break;
+      }
+      default:
+        break;
+    }
+  }
+
+  byPopularity(): void {
+    this.tracks.sort(function(a, b){return a.basic.popularity - b.basic.popularity});
+  }
+
+  byTempo(): void {
+    this.tracks.sort(function(a, b){return a.advanced.tempo - b.advanced.tempo});
+  }
+
+  byDanceability(): void {
+    this.tracks.sort(function(a, b){return a.advanced.danceability - b.advanced.danceability});
   }
 
   playSample(trackid: string): void {
