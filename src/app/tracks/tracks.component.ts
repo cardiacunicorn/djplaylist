@@ -22,6 +22,15 @@ export class TracksComponent implements OnInit {
     // this.getTracks();
   }
 
+  shuffleArtists(): void {
+    for (var i = 1; i < this.tracks.length; i++) {
+      if (this.tracks[i].basic.artists[0].id == this.tracks[i-1].basic.artists[0].id) {
+        // The main artist is the same for this track as the track before it
+        this.moveDown(this.tracks[i]);
+      }
+    }
+  }
+
   sortBy(sortArgument): void {
     console.log(sortArgument);
     switch (sortArgument) {
