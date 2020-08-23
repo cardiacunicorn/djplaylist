@@ -1,4 +1,12 @@
-<h1>Welcome to DJ Playlist</h1>
-<div class="container center">
-  <button class="btn btn-primary"  href="http://localhost:8888/login" type="button" name="login">Log in to Spotify</button>
+<div class="container">
+  <div class="row">
+    <div class="col text-center">
+      <h1 class="my-3">Welcome to DJ Playlist</h1>
+      <a *ngIf="!access_token" class="btn btn-success"  href="http://localhost:8888/login" name="login">Log in to Spotify</a>
+      <div *ngIf="access_token">
+        <p>Successfully logged in to Spotify!</p>
+        <a class="btn btn-success"  routerLink="/playlists" name="playlists">Select a playlist</a>
+      </div>
+    </div>
+  </div>
 </div>

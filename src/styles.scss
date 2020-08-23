@@ -8,22 +8,85 @@ $green: #47CC4A;
 $dark: #333;
 $light: #CCC;
 
+body {
+  min-height: 100vh;
+  background-color: #282c34;
+  color: white;
+}
+
+// .App {
+//   text-align: center;
+//   background-color: #282c34;
+//   min-height: 100vh;
+//   display: flex;
+//   flex-direction: column;
+//   align-items: center;
+//   justify-content: center;
+//   font-size: calc(10px + 1vmin);
+//   color: white;
+// }
+
+app-root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #282c34;
+}
+
+app-navbar {
+  min-height: 5vh;
+}
+
+app-home {
+  display: flex;
+  flex-direction: column;
+  min-height: 50vh;
+}
+
+app-messages {
+  display: flex;
+  flex-direction: column;
+  min-height: 25vh;
+}
+
+// app-footer {
+//   color: white;
+// }
+
 img {
-  margin: 0 1vw;
+  margin: 0 1rem;
+}
+
+.nav-link {
+  opacity: 1;
 }
 
 a:hover {
   opacity: 0.7;
 }
 
-nav img, footer img {
-  max-height: 3vh;
-  max-width: 5vw;
+nav img {
+  max-width: 4vw;
+  max-height: 100%;
+}
+
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  color: white;
+  background-color: #282c34;
+}
+
+footer img {
+  margin: 0.5rem;
+  max-width: 3vw;
+  max-height: 100%;
 }
 
 h1 {
-  color: $pink;
-  background-color: $darkblue;
+  color: $darkblue;
   text-decoration: underline wavy $green;
   text-decoration-skip-ink: none;
   font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
@@ -40,13 +103,6 @@ h2, h3 {
   text-decoration-skip-ink: none;
 }
 
-body {
-  margin: 2em;
-}
-
-body, input[type="text"], button {
-  color: $dark;
-}
 /* everywhere else */
 * {
   font-family: Tahoma, Geneva, sans-serif;

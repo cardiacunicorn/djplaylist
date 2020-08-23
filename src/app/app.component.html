@@ -1,8 +1,27 @@
-<app-navbar></app-navbar>
-<div class="main">
-  <div class="container">
-    <router-outlet></router-outlet>
-    <app-messages></app-messages>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-12 p-0">
+      <app-navbar></app-navbar>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="container">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="container">
+        <app-messages></app-messages>
+      </div>
+    </div>
+  </div>
+  <div class="row align-items-end">
+    <div class="col-12 p-0">
+      <!-- <app-footer></app-footer> -->
+    </div>
   </div>
 </div>
 <app-footer></app-footer>

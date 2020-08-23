@@ -11,6 +11,8 @@ import { AuthoriseService } from '../services/authorise.service';
 })
 export class HomeComponent implements OnInit {
 
+  public access_token: string;
+
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
@@ -23,6 +25,7 @@ export class HomeComponent implements OnInit {
       this.authoriseService.refresh_token = this.route.snapshot.queryParamMap.get("refresh_token");
       console.log("Access token: "+(this.authoriseService.access_token || "None found"));
       console.log("Refresh token: "+(this.authoriseService.refresh_token || "None found"));
+      this.access_token = this.authoriseService.access_token;
     }
   }
 
