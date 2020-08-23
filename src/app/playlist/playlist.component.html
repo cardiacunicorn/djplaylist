@@ -1,12 +1,20 @@
 <div *ngIf="playlist" class="playlist">
-  <h2>{{ playlist.name }}</h2>
-  <p>{{ playlist.tracks.total }} tracks by {{ playlist.owner.display_name }}</p>
-  <label for="playlist-name">
-    Rename playlist (ID: {{ playlist.id }}), using two-way data-binding `[()]`:
-  </label>
-  <input [(ngModel)]="playlist.name" type="text" name="playlist-name" placeholder="name" />
-
+  <div id="playlist-info">
+    <h2>Playlist: {{ playlist.name }}</h2>
+    <p>{{ playlist.tracks.total }} tracks by {{ playlist.owner.display_name }}</p>
+  </div>
+  <hr />
+  <div id="new-playlist-creator" class="text-center">
+    <form class="">
+      <label for="playlist-name">New playlist name:</label>
+      <input [(ngModel)]="playlist.name" type="text" name="playlist-name" placeholder="name" />
+      <small class="form-text text-muted">Rename playlist (ID: {{ playlist.id }}), using two-way data-binding `[()]`</small>
+      <button class="btn btn-primary" type="submit">Submit</button>
+    </form>
+  </div>
+  <hr />
   <app-tracks [tracks]="tracks"></app-tracks>
-
-  <button (click)="goBack()">Back</button>
+  <div class="text-center my-2">
+    <button class="btn btn-secondary" (click)="goBack()">Back to Playlists</button>
+  </div>
 </div>

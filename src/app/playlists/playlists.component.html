@@ -1,13 +1,25 @@
 <div class="playlists">
   <h2>Playlists</h2>
-  <ul>
-    <li *ngFor="let playlist of playlists" [class.selected]="playlist === selectedPlaylist">
-      <img *ngIf="playlist.images[0].url" [src]="playlist.images[0].url" class="playlist-coverart"/>
-      {{ playlist.name }} by {{ playlist.owner.display_name }}
-      <!-- Two approaches: function vs routing -->
-      <!-- <button type="button" (click)="onSelect(playlist)">Select</button> -->
-      <button type="button" routerLink="/playlist/{{playlist.id}}">Select</button>
-    </li>
-  </ul>
+  <hr />
+  <table class="table table-sm table-dark">
+    <thead class="thead-dark">
+      <tr>
+        <th class="align-middle centre-cell" scope="col">Artwork</th>
+        <th class="align-middle" scope="col">Playlist Name</th>
+        <th class="align-middle" scope="col">Creator</th>
+        <th class="align-middle centre-cell" scope="col">Tracks</th>
+        <th class="align-middle centre-cell" scope="col">Manual</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let playlist of playlists" [class.selected]="playlist === selectedPlaylist">
+        <td class="align-middle centre-cell"><img *ngIf="playlist.images[0].url" [src]="playlist.images[0].url" class="playlist-coverart"/></td>
+        <td class="align-middle">{{ playlist.name }}</td>
+        <td class="align-middle">{{ playlist.owner.display_name }}</td>
+        <td class="align-middle centre-cell">{{ playlist.tracks.total }}</td>
+        <td class="align-middle centre-cell"><button type="button" class="btn btn-primary" routerLink="/playlist/{{playlist.id}}">Select</button></td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 <!-- <app-playlist [playlist]="selectedPlaylist"></app-playlist> -->
