@@ -26,8 +26,11 @@ export class TrackService {
   }
 
   getTracks(playlistID: string): Observable<Track[]> {
-    let tracklistsUrl: string = this.remoteconnect.server + '/api/gettracks?access_token=' + this.authoriseService.access_token + '&playlistID=' + playlistID;
-    return this.http.get<Track[]>(tracklistsUrl);
+    console.log("Access Token: "+(this.authoriseService.access_token || "None found"));
+    if (this.authoriseService.access_token) {
+      let tracklistsUrl: string = this.remoteconnect.server + '/api/gettracks?access_token=' + this.authoriseService.access_token + '&playlistID=' + playlistID;
+      return this.http.get<Track[]>(tracklistsUrl);
+    } else { return of() }
   }
 
 }

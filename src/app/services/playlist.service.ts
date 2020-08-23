@@ -32,15 +32,17 @@ export class PlaylistService {
   }
 
   getPlaylists(): Observable<SpotifyPlaylist[]> {
-    let playlistsUrl: string = this.remoteconnect.server + '/api/getmyplaylists?access_token=' + this.authoriseService.access_token;
-    this.obsPlaylists = this.http.get<SpotifyPlaylist[]>(playlistsUrl);
-    this.log(`Fetching playlists`);
-    this.obsPlaylists.subscribe(playlists => {
-      // Once aync operation completes, make this.playlists an array
-      this.playlists = playlists;
-    });
-
-    return this.obsPlaylists;
+    console.log("Access Token: "+(this.authoriseService.access_token || "None found"));
+    if (this.authoriseService.access_token) {
+      let playlistsUrl: string = this.remoteconnect.server + '/api/getmyplaylists?access_token=' + this.authoriseService.access_token;
+      this.obsPlaylists = this.http.get<SpotifyPlaylist[]>(playlistsUrl);
+      this.log(`Fetching playlists`);
+      this.obsPlaylists.subscribe(playlists => {
+        // Once aync operation completes, make this.playlists an array
+        this.playlists = playlists;
+      });
+      return this.obsPlaylists;
+    } else { return of() }
   }
 
   getPlaylist(id: string): Observable<SpotifyPlaylist> {

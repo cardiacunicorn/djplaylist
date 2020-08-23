@@ -1,16 +1,12 @@
 <div *ngIf="playlist" class="playlist">
-  <h3>{{ playlist.name }} by {{ playlist.owner.display_name }}</h3>
+  <h2>{{ playlist.name }}</h2>
+  <p>{{ playlist.tracks.total }} tracks by {{ playlist.owner.display_name }}</p>
   <label for="playlist-name">
     Rename playlist (ID: {{ playlist.id }}), using two-way data-binding `[()]`:
   </label>
   <input [(ngModel)]="playlist.name" type="text" name="playlist-name" placeholder="name" />
-  <ol class="track-listing">
-    <li>Tracks: {{ playlist.tracks.total }}</li>
-    <li>TracksURL: {{ playlist.tracks.href }}</li>
-  </ol>
 
   <app-tracks [tracks]="tracks"></app-tracks>
-  <!-- <app-playlist [playlist]="selectedPlaylist"></app-playlist> -->
 
   <button (click)="goBack()">Back</button>
 </div>

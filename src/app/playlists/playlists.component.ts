@@ -23,13 +23,10 @@ export class PlaylistsComponent implements OnInit {
   }
 
   getPlaylists(): void {
-    console.log("Access Token: "+this.authoriseService.access_token);
-    if (this.authoriseService.access_token) {
-      this.playlistService.getPlaylists().subscribe(playlists => {
-        // Once aync operation completes...
-        this.playlists = playlists;
-      });
-    }
+    this.playlistService.getPlaylists().subscribe(playlists => {
+      // Once aync operation completes...
+      this.playlists = playlists;
+    });
   }
 
   onSelect(playlist: SpotifyPlaylist): void {
