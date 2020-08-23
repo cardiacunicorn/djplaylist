@@ -28,8 +28,10 @@
         <td class="align-middle centre-cell">{{ track.advanced.tempo }}</td>
         <td class="align-middle centre-cell">
           <div class="btn-group btn-group-sm" role="group">
+            <button type="button" class="btn btn-info" (click)="playSample(track.id)">►</button>
             <button type="button" class="btn btn-success" (click)="moveUp(track)">↑</button>
             <button type="button" class="btn btn-danger" (click)="moveDown(track)">↓</button>
+            <audio [id]="track.id" [src]="track.basic.preview_url"></audio>
           </div>
         </td>
       </tr>

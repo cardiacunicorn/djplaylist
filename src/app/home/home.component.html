@@ -7,12 +7,14 @@
         <p>DJ Playlist allows you to log in to your Spotify account, grab that playlist, and re-order those great songs into a playlist that makes more sense. No more shuffle, no more skipping songs when they cause the mood to shift 😩🤮</p>
         <p>The advanced metrics 📈 provided for each song means that you can curate your playlists for the context your play them in: be it a dancefloor 💃 going for a run 🏃‍♀️ or just ramping up from obscure indie 🪕🎹 to the latest pop 👩‍🎤🎤</p>
         <p>You'll understand better once you see these metrics 😉</p>
+        <p>&nbsp;</p>
         <p><strong>Get started by logging in to Spotify below:</strong></p>
+        <p>&nbsp;</p>
       </div>
       <a *ngIf="!access_token" class="btn btn-success"  href="http://localhost:8888/login" name="login">Log in to Spotify</a>
       <div *ngIf="access_token">
-        <p>Successfully logged in to Spotify!</p>
-        <a class="btn btn-success"  routerLink="/playlists" name="playlists">Select a playlist</a>
+        <p class="text-success">Successfully logged in to Spotify!</p>
+        <a class="btn btn-primary"  routerLink="/playlists" name="playlists">Select a playlist</a>
       </div>
     </div>
   </div>
