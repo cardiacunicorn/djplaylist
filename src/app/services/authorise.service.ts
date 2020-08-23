@@ -9,8 +9,7 @@ export class AuthoriseService {
   public refresh_token: string;
 
   constructor() {
-    this.access_token = "No token";
-    this.refresh_token = "No token";
+    
   }
 
 

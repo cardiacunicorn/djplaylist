@@ -5,6 +5,7 @@ import { catchError, map, tap } from 'rxjs/operators';
 
 import { MessageService } from './message.service';
 import { AuthoriseService } from '../services/authorise.service';
+import { TrackService } from '../services/track.service';
 import { RemoteconnectService } from '../services/remoteconnect.service';
 import { SpotifyPlaylist, Owner } from '../model/playlist';
 
@@ -13,10 +14,15 @@ import { SpotifyPlaylist, Owner } from '../model/playlist';
 })
 export class PlaylistService {
 
+  public obsPlaylists: Observable<SpotifyPlaylist[]>;
+  public playlists: SpotifyPlaylist[] = [];
+  public selectedPlaylist: SpotifyPlaylist;
+
   constructor(
     private http: HttpClient,
     private messageService: MessageService,
     private authoriseService: AuthoriseService,
+    private trackService: TrackService,
     private remoteconnect: RemoteconnectService
   ) { }
 
@@ -27,14 +33,21 @@ export class PlaylistService {
 
   getPlaylists(): Observable<SpotifyPlaylist[]> {
     let playlistsUrl: string = this.remoteconnect.server + '/api/getmyplaylists?access_token=' + this.authoriseService.access_token;
-    return this.http.get<SpotifyPlaylist[]>(playlistsUrl);
+    this.obsPlaylists = this.http.get<SpotifyPlaylist[]>(playlistsUrl);
+    this.log(`Fetching playlists`);
+    this.obsPlaylists.subscribe(playlists => {
+      // Once aync operation completes, make this.playlists an array
+      this.playlists = playlists;
+    });
+
+    return this.obsPlaylists;
   }
 
-  getPlaylist(id: number): Observable<SpotifyPlaylist> {
-    this.log(`fetching playlist #${id}`);
-    // Currently simulating an async observable playlist
-    // return of(PLAYLISTS.find(playlist => playlist.id === id));
-    return of();
+  getPlaylist(id: string): Observable<SpotifyPlaylist> {
+    // TODO: send the message _after_ fetching
+    this.log(`fetched playlist id=${id}`);
+    // At this point, this.playlists NEEDS to be an ARRAY
+    return of(this.playlists.find(playlist => playlist.id === id));
   }
 
   // Definitely partly implemented...

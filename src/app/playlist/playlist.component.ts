@@ -4,6 +4,7 @@ import { Location } from '@angular/common';
 
 import { SpotifyPlaylist, Owner } from '../model/playlist';
 import { PlaylistService } from '../services/playlist.service';
+import { TrackService } from '../services/track.service';
 
 @Component({
   selector: 'app-playlist',
@@ -17,6 +18,7 @@ export class PlaylistComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private playlistService: PlaylistService,
+    private trackService: TrackService,
     private location: Location
   ) { }
 
@@ -25,9 +27,17 @@ export class PlaylistComponent implements OnInit {
   }
 
   getPlaylist(): void {
-    const id = +this.route.snapshot.paramMap.get('id'); // + converts to number from string
+    const id = this.route.snapshot.paramMap.get('id');
     this.playlistService.getPlaylist(id).subscribe(playlist => this.playlist = playlist);
   }
+
+  // getPlaylist(): void {
+  //   const id = this.route.snapshot.paramMap.get('id');
+  //   this.playlistService.getPlaylist(id).subscribe(playlist => {
+  //     console.log(playlist);
+  //     this.playlist = playlist;
+  //   });
+  // }
 
   goBack(): void {
     this.location.back();

@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    if (this.authoriseService.access_token == "No token") {
+    if (!this.authoriseService.access_token) {
       this.authoriseService.access_token = this.route.snapshot.queryParamMap.get("access_token");
       this.authoriseService.refresh_token = this.route.snapshot.queryParamMap.get("refresh_token");
       console.log("Access token: "+(this.authoriseService.access_token || "None found"));

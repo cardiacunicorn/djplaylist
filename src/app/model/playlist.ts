@@ -14,6 +14,8 @@ export interface SpotifyPlaylist {
 
 export interface Track {
   id: string;
+  basic: object;
+  advanced: object;
 }
 
 export interface Owner {
