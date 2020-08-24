@@ -8,8 +8,14 @@
     <form class="">
       <label for="playlist-name">New playlist name:</label>
       <input [(ngModel)]="playlist.name" type="text" name="playlist-name" placeholder="name" />
-      <small class="form-text text-muted">Rename playlist (ID: {{ playlist.id }}), using two-way data-binding `[()]`</small>
-      <button class="btn btn-primary" type="submit">Create</button>
+      <div>
+        <span class="align-middle mx-2">Public?</span>
+        <label class="switch align-middle mt-2">
+          <input #ispublic type="checkbox" checked>
+          <span class="slider round"></span>
+        </label>
+      </div>
+      <button class="btn btn-primary" (click)="createPlaylist(playlist.name,ispublic.checked,tracks)">Create</button>
     </form>
   </div>
   <hr />

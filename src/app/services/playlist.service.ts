@@ -7,7 +7,7 @@ import { MessageService } from './message.service';
 import { AuthoriseService } from '../services/authorise.service';
 import { TrackService } from '../services/track.service';
 import { RemoteconnectService } from '../services/remoteconnect.service';
-import { SpotifyPlaylist, Owner } from '../model/playlist';
+import { SpotifyPlaylist, Owner, Track } from '../model/playlist';
 
 @Injectable({
   providedIn: 'root'
@@ -50,6 +50,29 @@ export class PlaylistService {
     this.log(`fetched playlist id=${id}`);
     // At this point, this.playlists NEEDS to be an ARRAY
     return of(this.playlists.find(playlist => playlist.id === id));
+  }
+
+  createPlaylist(name: string, description: string, is_public: boolean, tracks: Track[]): void {
+    console.log("Creating new "+(is_public ? "public" : "private")+" playlist, called "+name+".\nTracklist:");
+
+    var uris: string[] = [];
+    for (var i = 0; i < tracks.length; i++) {
+      uris.push(tracks[i].basic.uri);
+    }
+    if (this.authoriseService.access_token) {
+      var createPlaylistUrl: string = this.remoteconnect.server + '/api/createplaylist?';
+      var body = {
+        "access_token":this.authoriseService.access_token,
+        "userID":this.authoriseService.spotifyID,
+        "name":name,
+        "description":description,
+        "public": is_public,
+        "uris":uris
+      };
+      this.http.post(createPlaylistUrl, body).subscribe(response => {
+        console.log(response);
+      });
+    }
   }
 
   // Definitely partly implemented...

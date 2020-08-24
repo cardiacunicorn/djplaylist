@@ -21,8 +21,10 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     if (!this.authoriseService.access_token) {
+      this.authoriseService.spotifyID = this.route.snapshot.queryParamMap.get("spotifyID");
       this.authoriseService.access_token = this.route.snapshot.queryParamMap.get("access_token");
       this.authoriseService.refresh_token = this.route.snapshot.queryParamMap.get("refresh_token");
+      console.log("Spotify ID: "+(this.authoriseService.spotifyID || "None found"));
       console.log("Access token: "+(this.authoriseService.access_token || "None found"));
       console.log("Refresh token: "+(this.authoriseService.refresh_token || "None found"));
       this.access_token = this.authoriseService.access_token;

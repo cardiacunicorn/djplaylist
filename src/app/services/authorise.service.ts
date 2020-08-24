@@ -7,9 +7,10 @@ export class AuthoriseService {
 
   public access_token: string;
   public refresh_token: string;
+  public spotifyID: string;
 
   constructor() {
-    
+
   }
 
 
