@@ -7,7 +7,7 @@
   <div id="new-playlist-creator" class="text-center">
     <form class="">
       <label for="playlist-name">New playlist name:</label>
-      <input [(ngModel)]="playlist.name" type="text" name="playlist-name" placeholder="name" />
+      <input [(ngModel)]="playlist.name" type="text" name="playlist-name" [placeholder]="playlist.name" />
       <div>
         <span class="align-middle mx-2">Public?</span>
         <label class="switch align-middle mt-2">

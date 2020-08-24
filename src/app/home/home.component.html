@@ -11,7 +11,7 @@
         <p *ngIf="!access_token"><strong>Get started by logging in to Spotify below:</strong></p>
         <p>&nbsp;</p>
       </div>
-      <a *ngIf="!access_token" class="btn btn-success"  href="http://localhost:8888/login" name="login">Log in to Spotify</a>
+      <a *ngIf="!access_token" class="btn btn-success"  href="http://djbeanstalknodeenv.eba-azezgsp8.ap-southeast-2.elasticbeanstalk.com/login" name="login">Log in to Spotify</a>
       <div *ngIf="access_token">
         <p class="text-success">Successfully logged in to Spotify!</p>
         <a class="btn btn-primary"  routerLink="/playlists" name="playlists">Select a playlist</a>
