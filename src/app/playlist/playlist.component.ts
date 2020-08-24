@@ -29,8 +29,6 @@ export class PlaylistComponent implements OnInit {
   }
 
   createPlaylist(name: string, is_public: boolean, tracks: Track[]): void {
-    // var checkbox: HTMLInputElement = document.getElementById("is-public");
-
     this.playlistService.createPlaylist(name, "Created in DJ Playlist app", is_public, tracks);
   }
 
