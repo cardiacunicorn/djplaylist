@@ -8,7 +8,7 @@
         <p>The advanced metrics 📈 provided for each song means that you can curate your playlists for the context your play them in: be it a dancefloor 💃 going for a run 🏃‍♀️ or just ramping up from obscure indie 🪕🎹 to the latest pop 👩‍🎤🎤</p>
         <p>You'll understand better once you see these metrics 😉</p>
         <p>&nbsp;</p>
-        <p><strong>Get started by logging in to Spotify below:</strong></p>
+        <p *ngIf="!access_token"><strong>Get started by logging in to Spotify below:</strong></p>
         <p>&nbsp;</p>
       </div>
       <a *ngIf="!access_token" class="btn btn-success"  href="http://localhost:8888/login" name="login">Log in to Spotify</a>
