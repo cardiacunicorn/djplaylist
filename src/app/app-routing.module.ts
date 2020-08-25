@@ -9,7 +9,7 @@ import { DocumentationComponent } from './documentation/documentation.component'
 import { RemoteconnectService } from './services/remoteconnect.service';
 
 constructor(
-  private remoteconnect: RemoteconnectService
+  private remoteconnect: RemoteconnectService;
 ) { }
 
 const routes: Routes = [
