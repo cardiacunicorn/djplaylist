@@ -41,7 +41,7 @@
         </td>
         <td class="align-middle centre-cell">{{ track.basic.popularity }}</td>
         <td class="align-middle centre-cell">{{ track.advanced.danceability | number:'1.0-2' }}</td>
-        <td class="align-middle centre-cell">{{ track.advanced.tempo | number:'0' }}</td>
+        <td class="align-middle centre-cell">{{ track.advanced.tempo | number:'1.0' }}</td>
         <td class="align-middle centre-cell">
           <div class="btn-group btn-group-sm" role="group">
             <button type="button" class="btn btn-info" (click)="playSample(track.id)" aria-label="Play or Pause">►</button>
