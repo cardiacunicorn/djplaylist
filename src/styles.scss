@@ -14,18 +14,6 @@ body {
   color: white;
 }
 
-// .App {
-//   text-align: center;
-//   background-color: #282c34;
-//   min-height: 100vh;
-//   display: flex;
-//   flex-direction: column;
-//   align-items: center;
-//   justify-content: center;
-//   font-size: calc(10px + 1vmin);
-//   color: white;
-// }
-
 app-root {
   display: flex;
   flex-direction: column;
@@ -54,13 +42,13 @@ img {
 }
 
 nav img {
-  max-width: 4vw;
+  max-width: 2rem;
   max-height: 100%;
 }
 
 footer img {
   margin: 0.5rem;
-  max-width: 3vw;
+  max-width: 1.5rem;
   max-height: 100%;
 }
 
@@ -87,7 +75,6 @@ h1, h2, h3 {
   font-weight: lighter;
   text-decoration: underline wavy $green;
   text-decoration-skip-ink: none;
-  text-underline-offset: 1em;
 }
 
 h1 {
