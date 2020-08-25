@@ -32,7 +32,7 @@ export class PlaylistService {
   }
 
   getPlaylists(): Observable<SpotifyPlaylist[]> {
-    console.log("Access Token: "+(this.authoriseService.access_token || "None found"));
+    this.log("Access Token: "+(this.authoriseService.access_token ? "Attached" : "None found"));
     if (this.authoriseService.access_token) {
       let playlistsUrl: string = this.remoteconnect.server + '/api/getmyplaylists?access_token=' + this.authoriseService.access_token;
       this.obsPlaylists = this.http.get<SpotifyPlaylist[]>(playlistsUrl);
@@ -47,14 +47,13 @@ export class PlaylistService {
 
   getPlaylist(id: string): Observable<SpotifyPlaylist> {
     // TODO: send the message _after_ fetching
-    this.log(`fetched playlist id=${id}`);
+    this.log(`Fetched playlist id=${id}`);
     // At this point, this.playlists NEEDS to be an ARRAY
     return of(this.playlists.find(playlist => playlist.id === id));
   }
 
   createPlaylist(name: string, description: string, is_public: boolean, tracks: Track[]): void {
-    console.log("Creating new "+(is_public ? "public" : "private")+" playlist, called "+name+".\nTracklist:");
-
+    this.log("Creating your "+name+" playlist");
     var uris: string[] = [];
     for (var i = 0; i < tracks.length; i++) {
       uris.push(tracks[i].basic.uri);
@@ -70,7 +69,11 @@ export class PlaylistService {
         "uris":uris
       };
       this.http.post(createPlaylistUrl, body).subscribe(response => {
-        console.log(response);
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          this.log("Created new "+(is_public ? "public" : "private")+" playlist, called "+name);
+        } else {
+          this.log("Error. Playlist creation failed.");
+        }
       });
     }
   }

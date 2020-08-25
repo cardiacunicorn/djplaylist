@@ -95,7 +95,6 @@ export class TracksComponent implements OnInit {
 
   moveUp(track: Track): void {
     console.log("Moving "+track.basic.name+" up");
-    console.log(track.basic);
     // Starting at index 1, because you can't move the top track up
     for (var i = 1; i < this.tracks.length; i++) {
       if (this.tracks[i].id == track.id) {
@@ -108,7 +107,6 @@ export class TracksComponent implements OnInit {
 
   moveDown(track: Track): void {
     console.log("Moving "+track.basic.name+" down");
-    console.log(track.advanced);
     // Ending at length - 1, because you can't move the bottom track down
     for (var i = 0; i < this.tracks.length - 1; i++) {
       if (this.tracks[i].id == track.id) {

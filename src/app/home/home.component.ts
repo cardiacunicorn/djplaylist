@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute } from "@angular/router";
 import { AuthoriseService } from '../services/authorise.service';
+import { MessageService } from './message.service';
 
 
 @Component({
@@ -16,7 +17,8 @@ export class HomeComponent implements OnInit {
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
-    private authoriseService: AuthoriseService
+    private authoriseService: AuthoriseService,
+    private messageService: MessageService
   ) { }
 
   ngOnInit(): void {
@@ -24,7 +26,8 @@ export class HomeComponent implements OnInit {
       this.authoriseService.spotifyID = this.route.snapshot.queryParamMap.get("spotifyID");
       this.authoriseService.access_token = this.route.snapshot.queryParamMap.get("access_token");
       this.authoriseService.refresh_token = this.route.snapshot.queryParamMap.get("refresh_token");
-      console.log("Spotify ID: "+(this.authoriseService.spotifyID || "None found"));
+      this.messageService.add('SpotifyID: '+(this.authoriseService.spotifyID || "None found"));
+      this.messageService.add('Access: '+(this.authoriseService.access_token ? "Granted" : "Denied"));
       console.log("Access token: "+(this.authoriseService.access_token || "None found"));
       console.log("Refresh token: "+(this.authoriseService.refresh_token || "None found"));
       this.access_token = this.authoriseService.access_token;
