@@ -75,12 +75,12 @@ export class PlaylistService {
       this.http.post(createPlaylistUrl, body).subscribe(response => {
         if (response) {
           this.log("Created new "+(is_public ? "public" : "private")+" playlist, called "+name);
-          return true;
         } else {
           this.log("Error. Playlist creation failed.");
           return false;
         }
       });
+      return true;
     } else return false;
   }
 }
