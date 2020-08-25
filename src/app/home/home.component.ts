@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ActivatedRoute } from "@angular/router";
 import { AuthoriseService } from '../services/authorise.service';
-import { MessageService } from './message.service';
+import { MessageService } from '../services/message.service';
 
 
 @Component({
