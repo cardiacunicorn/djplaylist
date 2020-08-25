@@ -52,7 +52,7 @@ export class PlaylistService {
     return of(this.playlists.find(playlist => playlist.id === id));
   }
 
-  createPlaylist(name: string, description: string, is_public: boolean, tracks: Track[]): void {
+  createPlaylist(name: string, description: string, is_public: boolean, tracks: Track[]): boolean {
     this.log("Creating your "+name+" playlist");
     var uris: string[] = [];
     var tracknames: string[] = [];
@@ -75,10 +75,12 @@ export class PlaylistService {
       this.http.post(createPlaylistUrl, body).subscribe(response => {
         if (response) {
           this.log("Created new "+(is_public ? "public" : "private")+" playlist, called "+name);
+          return true;
         } else {
           this.log("Error. Playlist creation failed.");
+          return false;
         }
       });
-    }
+    } else return false;
   }
 }

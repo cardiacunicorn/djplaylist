@@ -16,6 +16,7 @@ export class PlaylistComponent implements OnInit {
   // Input means that this component can receive a playlist parameter
   @Input() playlist: SpotifyPlaylist;
   public tracks: Track[];
+  public created: boolean = false;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,7 +30,7 @@ export class PlaylistComponent implements OnInit {
   }
 
   createPlaylist(name: string, is_public: boolean, tracks: Track[]): void {
-    this.playlistService.createPlaylist(name, "Created in DJ Playlist app", is_public, tracks);
+    this.created = this.playlistService.createPlaylist(name, "Created in DJ Playlist app", is_public, tracks);
   }
 
   getPlaylist(): void {
