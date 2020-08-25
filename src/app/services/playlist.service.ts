@@ -55,8 +55,10 @@ export class PlaylistService {
   createPlaylist(name: string, description: string, is_public: boolean, tracks: Track[]): void {
     this.log("Creating your "+name+" playlist");
     var uris: string[] = [];
+    var tracknames: string[] = [];
     for (var i = 0; i < tracks.length; i++) {
       uris.push(tracks[i].basic.uri);
+      tracknames.push(tracks[i].basic.name);
     }
     if (this.authoriseService.access_token) {
       var createPlaylistUrl: string = this.remoteconnect.server + '/api/createplaylist?';
@@ -66,7 +68,9 @@ export class PlaylistService {
         "name":name,
         "description":description,
         "public": is_public,
-        "uris":uris
+        "uris":uris,
+        "tracknames":tracknames,
+        "tracks":tracks
       };
       this.http.post(createPlaylistUrl, body).subscribe(response => {
         if (response) {
