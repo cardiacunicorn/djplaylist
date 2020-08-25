@@ -69,7 +69,7 @@ export class PlaylistService {
         "uris":uris
       };
       this.http.post(createPlaylistUrl, body).subscribe(response => {
-        if (response.statusCode == 200 || response.statusCode == 201) {
+        if (response) {
           this.log("Created new "+(is_public ? "public" : "private")+" playlist, called "+name);
         } else {
           this.log("Error. Playlist creation failed.");
