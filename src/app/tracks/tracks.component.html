@@ -40,8 +40,8 @@
           {{ track.basic.artists[0].name }}<span *ngIf="track.basic.artists[1]"> & {{ track.basic.artists[1].name }}</span>
         </td>
         <td class="align-middle centre-cell">{{ track.basic.popularity }}</td>
-        <td class="align-middle centre-cell">{{ track.advanced.danceability | number:'1.0-2' }}</td>
-        <td class="align-middle centre-cell">{{ track.advanced.tempo | number:'1.0' }}</td>
+        <td class="align-middle centre-cell">{{ track.advanced.danceability }}</td>
+        <td class="align-middle centre-cell">{{ track.advanced.tempo }}</td>
         <td class="align-middle centre-cell">
           <div class="btn-group btn-group-sm" role="group">
             <button type="button" class="btn btn-info" (click)="playSample(track.id)" aria-label="Play or Pause">►</button>
