@@ -15,8 +15,8 @@
           <span class="slider round"></span>
         </label>
       </div>
+      <p *ngIf="created" class="text-success">Successfully created {{ playlist.name }}, check your Spotify :)</p>
       <button class="btn btn-primary" (click)="createPlaylist(playlist.name,ispublic.checked,tracks)">Create</button>
-      <span *ngIf="created" class="text-success">Successfully created {{ playlist.name }}, check your Spotify :)</span>
     </form>
   </div>
   <hr />
