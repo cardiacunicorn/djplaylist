@@ -23,13 +23,15 @@
   <p>Playlists are created and retrieved using the Playlist service in the Angular app.</p>
   <h4>Retrieval</h4>
   <ol>
-    <li>When an authorised user navigates to <code>/playlists</code> a request is sent from the service to our API's <code>/api/getmyplaylists</code> endpoint.</li>
+    <li>When an authorised user navigates to <code>/playlists</code> a request is sent from the service to the API's <code>/api/getmyplaylists</code> endpoint.</li>
     <li>The server retrieves the <code>access_token</code> and makes a check to see if it needs refreshing, before requesting the user's Playlist data from Spotify.</li>
     <li>If the data is retrieved successfully (<code>#200</code>), it is sent back to the Angular app for processing and rendering.</li>
   </ol>
   <h4>Creation</h4>
   <ol>
-    <li></li>
+    <li>The createPlaylist method in the Playlist component calls upon the Playlist Angular service to send the new playlist data to the API for processing.</li>
+    <li>Once the createPlaylist() POST request lands in the API, the data is stored in the Datastore NoSQL database, with the intention of making this data sharable with friends in the future.</li>
+    <li>The API then sends two requests to the Spotify API: create the playlist, and subsequently add Track objects to it in the specified order. This should return a #201 (Created) HTTP response.</li>
   </ol>
 </div>
 <div id="tracks">
@@ -37,17 +39,78 @@
   <p>Tracks are retrieved using the Track service in the Angular app.</p>
   <h4>Retrieval</h4>
   <ol>
-    <li></li>
+    <li>When an authorised user navigates to <code>/playlist/[playlistid]</code> a playlist object is sent along with them.</li>
+    <li>The track service then makes a request of the API to retrieve the track objects, and passes along the user's access_token and playlist ID.</li>
+    <li>The API retrieves the playlist's Track array data from Spotify.</li>
+    <li>If the data is retrieved successfully (<code>#200</code>), it is sent back to the Angular app for processing and rendering.</li>
+    <li>It should be noted that the Playlist object has a count of Track objects that includes a user's local files - for obvious reasons these local files are not brought into the DJ Playlist app.</li>
   </ol>
   <h4>Reordering</h4>
   <ol>
-    <li></li>
+    <li>The Playlist component is ultimately reponsible for the manipulation of the selected playlist's data into a new playlist object, including the new playlist name, it's privacy settings, and sending the entire playlist object to the API for re-creation.</li>
+    <li>However the Tracks component is responsible for the playback, track order and sorting functions, with the <code>playSample(trackid)</code>, <code>SortBy(sortArgument)</code>, <code>moveUp(track)</code> and <code>moveDown(track)</code> methods.</li>
   </ol>
+</div>
+<div id="angular">
+  <h3>Angular project structure</h3>
+  <div id="components">
+    <h4>Components</h4>
+    <p>As with any Angular app, the project is largely delivered in modular components. The main function of key components is listed below.</p>
+    <h5>Documentation</h5>
+    <p>This component is what you're currently reading - it's responsible for displaying the documentation and user guide.</p>
+    <h5>Footer</h5>
+    <p>Renders the Footer</p>
+    <h5>Home</h5>
+    <p>Renders the Home page. Notably, this component is reponsible for reading it's query string and sending the user's spotifyID, access & refresh token to the Authorise Service - as the homepage is where users land after completing the OAuth and callback flow.</p>
+    <h5>Messages</h5>
+    <p>Renders messages created with the Messages Service - for debugging purposes, and should be turned off when the site goes public.</p>
+    <h5>Navbar</h5>
+    <p>Renders the Navbar</p>
+    <h5>Playlist</h5>
+    <p>The playlist component renders a single selected playlist that is passed to it via one-way binding. It provides a two-way binding on the Playlist name to allow user's to rename the object, as well as a basic form structure for selecting the new playlist's privacy, and on submit initiates the create playlist flow.</p>
+    <p>This component also initiates the <code>getTracks()</code> method upon rendering; this interfaces with the Tracks Service to asynchronously retrieve the Track objects for the Playlist.</p>
+    <h5>Playlists</h5>
+    <p>While semantically similar to the above, this component has a very different responsibility. It renders a whole list of playlist objects, when a user selects a playlist it is passed as an input into the above Playlist component.</p>
+    <p>This component initiates the <code>getPlaylists()</code> method upon rendering; which has the Playlist Service asynchronously retrieve the authorised user's playlists  for display.</p>
+    <h5>Tracks</h5>
+    <p>This component is responsible for rendering an array of tracks, often input to it by the Playlist component. It also offers a number of functions to the user to control the ordering of Tracks.</p>
+  </div>
+  <div id="services">
+    <h4>Services</h4>
+    <p>The Angular project uses services to store and access global variables, as well as to run calls to the API. The main services in use are listed below, along with their general purpose.</p>
+    <h5>Authorise Service</h5>
+    <p>This service is responsible for storing the current user's Spotify ID, access and refresh tokens. It should be interfacing with the API to do this, but currently just stores the query results from the OAuth flow when authroised user's land on the Home component/page.</p>
+    <h5>Message Service</h5>
+    <p>This is a debugging service that works as a convenience method for developers. It outputs a message not unlike a <code>console.log()</code> but with reference to the component or service that caused that log.</p>
+    <h5>Playlist Service</h5>
+    <p>This component looks after interfacing with the API to retrieve an authorised user's playlists, as well as to create a new playlist.</p>
+    <h5>Remoteconnect Service</h5>
+    <p>This operates as a local store of the API's web address (and credentials if necessary).</p>
+    <h5>Track Service</h5>
+    <p>As with the Playlist Service, the Track Service requests the array of Track objects from the API, by providing it with the PlaylistID that was selected by the user.</p>
+  </div>
+  <div id="model">
+    <h4>Model</h4>
+    <p>This typescript file describes the expected structure of certain business objects, it is not necessary to strictly adhere to it, but as a strongly types language Typescript adds a level of safety compared to relying on regular-old Javascript.</p>
+  </div>
+</div>
+<div id="nodeapi">
+  <h3>Node/Express API</h3>
+  <p>The API exists entirely independently of the Angular front end, and is hosted on Google App Engine (and an older version exists on AWS Elastic Beanstalk as well).</p>
+  <p>This API is deliberately separate so as to keep sensitive information completely removed from the client-facing front end.</p>
+  <p> It stores my Spotify API credentials,  it provides endpoints for interfacing with the Spotify API, to allow for better call management in future. It also interfaces with the Google Datastore NoSQL database to store user log in information, including email & IP addresses, as well as Spotify ID, access & refresh tokens.</p>
+  <p>The API has been custom built out of curiosity, rather than necesity, to improve my own understanding of Node, Express, OAuth authentication and Spotify's API.</p>
+  <p>While Eastic Beanstalk would have meant the entire project structure could have existed solely on AWS, unfortunately due to issues arising with SSL certificates on Elastic Beanstalk environments, it meant a little too much confusing configuration work: but with some time and patience could easily be brought over to that system for better scalability and cohesion with the AWS Amplify Angular frontend.</p>
+</div>
+<div class="database">
+  <h3>Google Datastore NoSQL Database</h3>
+  <p>Currently this database is only receiving write requests. In future howerver, it should receive read requests to retrieve user's access and refresh tokens, as well as their email address and profile picture (if they have one). It should also be used to enable users to share created playlists, but retrieving the stored customised playlists, and rendering them independently of authentication at <code>/playlist/[playlistID]</code></p>
 </div>
 <div id="bugs">
   <h3>Known bugs & errors</h3>
   <ol>
-    <li>Some tracks don't have Advanced metrics, so can cause the server to crash e.g. Podcasts, Videos, Local Files</li>
-    <li>The error being returned by the server isn't conforming to proper JSON and is throwing a mild error</li>
+    <li>Some tracks don't have Advanced metrics, so can cause the server to crash e.g. Podcasts, Videos, Local Files. A solution has been found for Local files, but as yet Podcasts and Videos may still cause issues.</li>
+    <li>The error being returned by the server isn't conforming to proper JSON and is throwing a mild error unseen by users (check console on a bad HTTP statusCode)</li>
+    <li>The navbar is not performing responsively on mobile devices at the moment.</li>
   </ol>
 </div>
